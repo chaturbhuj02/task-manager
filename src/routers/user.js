@@ -53,6 +53,15 @@ router.get('/users/me', auth, async (req, res) => {
     res.send(req.user)
 })
 
+const multer = require('multer')
+
+const upload = multer({
+    dest: "avatars"
+})
+router.post('/users/me/avatar', upload.single('avatar'), (req, res)=>{
+    res.status(200).send()
+})
+
 router.patch('/users/me', auth, async (req, res) => {
     const updates = Object.keys(req.body)
     const allowedUpdates = ['name', 'email', 'password', 'age']
